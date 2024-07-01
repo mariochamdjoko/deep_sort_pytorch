@@ -38,10 +38,7 @@ class VideoTracker(object):
             self.vdo = cv2.VideoCapture(args.cam)
         else:
             self.vdo = cv2.VideoCapture()
-        if 'YOLOV8' in cfg:
-            self.detector = YOLO()
-        else:
-            self.detector = build_detector(cfg, use_cuda=use_cuda, segment=self.args.segment)
+        self.detector = YOLO("./detector/YOLOv8/yolov8s.pt")
         self.deepsort = build_tracker(cfg, use_cuda=use_cuda)
         self.class_names = self.detector.class_names
 
@@ -93,6 +90,8 @@ class VideoTracker(object):
             start = time.time()
             _, ori_im = self.vdo.retrieve()
             im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
+            
+            self.detector.predict(im)
 
             # do detection
             if self.args.segment:
