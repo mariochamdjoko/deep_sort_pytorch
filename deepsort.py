@@ -8,8 +8,6 @@ import json
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'thirdparty/fast-reid'))
-print("Using fast-reid from {}".format(os.path.join(os.path.dirname(__file__), 'thirdparty/fast-reid')))
-print("Testing pull")
 
 from detector import build_detector
 from deep_sort import build_tracker
